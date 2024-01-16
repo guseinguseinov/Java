@@ -1,39 +1,57 @@
 package Java;
 
 import java.io.*;
+import java.util.Calendar;
 
 public class JavaDateAndTime {
-
     public static String findDay(int month, int day, int year) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(year, month - 1, day);
+        String weekday = calendar.getTime().toString().split(" ")[0];
+        String result;
 
-        if (month == 1 ) {
-            month = 13;
-        } else  if (month == 2) {
-            month = 14;
+        switch (weekday) {
+            case "Mon": {
+                result = "MONDAY";
+                break;
+            }
+            case "Tue":{
+                result = "TUESDAY";
+                break;
+            }
+            case "Wed": {
+                result = "WEDNESDAY";
+                break;
+            }
+            case "Thu": {
+                result = "THURSDAY";
+                break;
+            }
+            case "Fri": {
+                result = "FRIDAY";
+                break;
+            }
+            case "Sat":{
+                result = "SATURDAY";
+                break;
+            }
+            case "Sun": {
+                result = "SUNDAY";
+                break;
+            }
+            default: {
+                result = "sasa";
+                break;
+            }
+
         }
-
-        year = year % 100;
-
-        int h = (8 + (13*(month + 1)/5) + year + (year/4) + (year/4) - 2*year) ;
-
-        switch (h) {
-            case 1:
-                return "Monday";
-            case 2: return "Tuesday";
-            case 3: return "wendsday";
-            case 4: return "thursday";
-            case 5: return "friday";
-            case 6: return "saturday";
-            case 7: return "sunday";
-            default:
-                return "some";
-        }
-
+        return result;
     }
 }
 
-class Solution  {
-    public static void main(String[] args)throws IOException {
+
+ class Solution {
+    public static void main(String[] args) throws IOException {
         BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
         BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(System.getenv("OUTPUT_PATH")));
 
@@ -53,5 +71,4 @@ class Solution  {
         bufferedReader.close();
         bufferedWriter.close();
     }
-
 }
