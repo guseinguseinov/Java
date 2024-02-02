@@ -1,8 +1,8 @@
 package Java.strings;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
-
-// TODO: NOT FINISHED. FINISH AFTER LEARNING MAP
 
 public class JavaAnagrams {
 
@@ -11,7 +11,44 @@ public class JavaAnagrams {
         if (a.length() != b.length()) {
             return false;
         }
-        return a.toLowerCase().compareTo(b.toLowerCase()) == 0;
+
+        a = a.toLowerCase();
+        b = b.toLowerCase();
+
+        Map<Character, Integer> map1 = new HashMap<>();
+        Map<Character, Integer> map2 = new HashMap<>();
+
+        for (int i = 0; i < a.length(); i++) {
+            char letter = a.charAt(i);
+            if (map1.get(letter) == null) {
+                map1.put(letter, 1);
+            }else {
+                map1.replace(letter, map1.get(letter) + 1);
+            }
+        }
+
+        for (int i = 0; i < b.length(); i++) {
+            char letter = b.charAt(i);
+            if (map2.get(letter) == null) {
+                map2.put(letter, 1);
+            }else {
+                map2.replace(letter, map2.get(letter) + 1);
+            }
+        }
+
+        for (Map.Entry<Character, Integer> characterIntegerEntry : map2.entrySet()) {
+            char key = characterIntegerEntry.getKey();
+            int value = characterIntegerEntry.getValue();
+            if(map1.get(key) == null) {
+                return false;
+            }
+            if (map1.get(key) != value) {
+                return false;
+            }
+
+        }
+
+        return true;
     }
 
     public static void main(String[] args) {
