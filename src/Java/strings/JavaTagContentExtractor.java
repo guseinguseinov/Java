@@ -5,7 +5,6 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 
-// TODO finish this
 public class JavaTagContentExtractor {
 
     public static void main(String[] args) {
@@ -23,12 +22,21 @@ public class JavaTagContentExtractor {
 
 
     private static void checkTag(String line) {
-        String regex = "<([a-zA-Z][a-zA-Z0-9]*)\\b[^>]*>.*?<\\/\\1>";
+        String regex = "<(.+?)>([^<]+)</\\1>";
+
 
         Pattern pattern = Pattern.compile(regex);
-        boolean isMatched = pattern.matcher(line).find();
+        Matcher mathcer = pattern.matcher(line);
 
-        System.out.println(isMatched ? "nese": "None");
+        boolean checked = false;
+        while (mathcer.find()) {
+            System.out.println(mathcer.group(2));
+            checked = true;
+        }
+
+        if (checked == false) {
+            System.out.println("None");
+        }
 
     }
 }
